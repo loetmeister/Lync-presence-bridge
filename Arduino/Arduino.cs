@@ -62,6 +62,8 @@ namespace Uctrl.Arduino
                 //response = serialPort.ReadLine();
 
                 //Debug.WriteLine("{0} --> {1}", string.Join(",", rgb), response);
+                Debug.Write("Serial Send: ");
+                Debug.WriteLine(command);
 
                 return true;
             }
@@ -72,9 +74,13 @@ namespace Uctrl.Arduino
             }
         }
 
-        public bool SetLEDs(byte[] colors)
+        public bool SetLEDs(byte[] colors, byte specialCommand) //public bool SetLEDs(byte[] specialCommand, byte[] colors)
         {
-            return Send(string.Join(",", colors));
+            string command = string.Join(",", colors);
+            command = command + "," + specialCommand;
+            //command.Concat(",");
+            return Send(command);
+            //return Send(string.Join(",", colors));
         }
     }
 }
