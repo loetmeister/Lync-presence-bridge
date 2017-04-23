@@ -246,10 +246,10 @@ namespace LyncPresenceBridge
                 Debug.WriteLine(currentAvailability.ToString());
             }
 
-            if (lyncClient.State == ClientState.SigningIn)
-            {
-                arduino.SetLEDs(arduinoColorAvailable, specialCommandAnimate);
-            }
+            //if (lyncClient.State == ClientState.SigningIn)
+            //{
+            //    arduino.SetLEDs(arduinoColorAvailable, specialCommandAnimate);
+            //}
         }
 
         void SetBlink1State(Rgb color)
@@ -306,6 +306,7 @@ namespace LyncPresenceBridge
                     break;
 
                 case ClientState.ShuttingDown:
+                    arduino.SetLEDs(arduinoColorOff, specialCommandNone);
                     break;
 
                 case ClientState.SignedIn:
@@ -317,10 +318,12 @@ namespace LyncPresenceBridge
                     trayIcon.ShowBalloonTip(1000, "", "You signed out in Lync. Switching to manual mode.", ToolTipIcon.Info);
                     break;
 
-                case ClientState.SigningIn: // TODO - add LED animation?
+                case ClientState.SigningIn:
+                    arduino.SetLEDs(arduinoColorAvailable, specialCommandAnimate);
                     break;
 
                 case ClientState.SigningOut:
+                    arduino.SetLEDs(arduinoColorOff, specialCommandNone);
                     break;
 
                 case ClientState.Uninitialized:
