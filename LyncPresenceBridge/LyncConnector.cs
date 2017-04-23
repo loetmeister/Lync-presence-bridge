@@ -154,9 +154,6 @@ namespace LyncPresenceBridge
                 if (lyncClient.State == ClientState.SignedIn)
                     lyncClient.Self.Contact.ContactInformationChanged += Contact_ContactInformationChanged;
 
-                //if (lyncClient.State == ClientState.SigningIn)
-                //    lyncClient.Self.Contact.ContactInformationChanged += Contact_ContactInformationChanged;
-
                 SetCurrentContactState();
             }
             catch (ClientNotFoundException)
@@ -245,11 +242,6 @@ namespace LyncPresenceBridge
 
                 Debug.WriteLine(currentAvailability.ToString());
             }
-
-            //if (lyncClient.State == ClientState.SigningIn)
-            //{
-            //    arduino.SetLEDs(arduinoColorAvailable, specialCommandAnimate);
-            //}
         }
 
         void SetBlink1State(Rgb color)

@@ -1,6 +1,6 @@
 # Lync-presence-bridge
 _Modified version to allow additional commands to be send to the Arduino._
-Componenets:
+Components used:
 * Arduino NANO clone
 * WS2812 RGB LED strip
 
@@ -15,6 +15,7 @@ Set blink(1) and Arduino light based on Skype for Business or Lync presence stat
 * Lync 2013 SDK: https://www.microsoft.com/en-us/download/details.aspx?id=36824
 
 ## Author
+[loetmeister](http://loetmeister.de)
 [Thomas Jensen](https://uctrl.io/@hebron)
 
 ## Credits / Attribution

@@ -8,7 +8,7 @@
 //define NeoPixel Pin and Number of LEDs
 #define NEO_PIN 2
 #define NEO_NUM_LEDS 8
-#define BRIGHTNESS 50
+#define BRIGHTNESS 30   // start with low brigtness
 
 //create a NeoPixel strip
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NEO_NUM_LEDS, NEO_PIN, NEO_GRB + NEO_KHZ800);
@@ -17,7 +17,7 @@ unsigned char redValue = 0; // value to write to the red LED
 unsigned char greenValue = 0; // value to write to the green LED
 unsigned char blueValue = 0; // value to write to the blue LED
 
-unsigned char newSerialDataReady = false;
+unsigned char updateLEDsOnce = false;
 unsigned char commandValue = 0;
 unsigned char oldCommandValue = 255;  // non existing command 255, forces init on startup
 
@@ -109,78 +109,75 @@ void loop() {
             break;
       
           default:
-            NeoLEDinterval = 30;
+            NeoLEDinterval = 40;
             break;
         }
         NeoLEDcount = 0;
         oldCommandValue = commandValue;
       }
-      
-      newSerialDataReady = true;
-    }
-  }
-  
-    if (newSerialDataReady) {
-      // update LEDs:
-
-      unsigned long currentMillis = millis();
-      
-      if (currentMillis - NeoLEDpreviousMillis >= NeoLEDinterval) {        
-        NeoLEDpreviousMillis = currentMillis;
-        
-        // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one        
-        // for (int i = 0; i < NEO_NUM_LEDS; i++) {
-        if (NeoLEDcount < NEO_NUM_LEDS) {
-          // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-          strip.setPixelColor(NeoLEDcount, strip.Color(redValue, greenValue, blueValue));
-          // strip.setPixelColor(0, strip.Color(200, 0, 0));
-          strip.show(); // This sends the updated pixel color to the hardware
- //       delay(60); // Delay for a period of time (in milliseconds)
-          NeoLEDcount++;
-         }
-         else {
-          //strip.show(); // This sends the updated pixel color to the hardware
-          NeoLEDcount = 0;
-          newSerialDataReady = false;
-                    
       // print the three numbers in one string as hexadecimal:
       Serial.print(redValue, HEX);
       Serial.print(greenValue, HEX);
       Serial.println(blueValue, HEX);
-          
-        }
-      }
+      
+      updateLEDsOnce = true;
     }
-
-    // animation
-    if (commandValue == 3){
-      unsigned long currentMillis = millis();
-      if (currentMillis - NeoLEDpreviousMillis >= NeoLEDinterval) {
-        NeoLEDpreviousMillis = currentMillis;
-        
-        // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one
-        strip.setPixelColor(NeoLEDcount, strip.Color(0, 0, 0));
-        
-        // count up to number of LEDs and down again
-        if (NeoLEDcountDown) {
-          if (NeoLEDcount >= 1)
-            NeoLEDcount--;
-        }
-        else {
-          if (NeoLEDcount < NEO_NUM_LEDS)
-            NeoLEDcount++;
-        }
-        if (NeoLEDcount == NEO_NUM_LEDS -1)
-          NeoLEDcountDown = true;
-        if (NeoLEDcount == 0)
-          NeoLEDcountDown = false;
-    //  redValue = 200;
-    //  commandValue = 3;
+  }
+  
+  if (updateLEDsOnce) {
+    // update LEDs:
+    unsigned long currentMillis = millis();
+    
+    if (currentMillis - NeoLEDpreviousMillis >= NeoLEDinterval) {        
+      NeoLEDpreviousMillis = currentMillis;
+      
+      // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one        
+      // for (int i = 0; i < NEO_NUM_LEDS; i++) {
+      if (NeoLEDcount < NEO_NUM_LEDS) {
         // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
         strip.setPixelColor(NeoLEDcount, strip.Color(redValue, greenValue, blueValue));
+        // strip.setPixelColor(0, strip.Color(200, 0, 0));
         strip.show(); // This sends the updated pixel color to the hardware
+//       delay(60); // Delay for a period of time (in milliseconds)
+        NeoLEDcount++;
+       }
+       else {
+        //strip.show(); // This sends the updated pixel color to the hardware
+        NeoLEDcount = 0;
+        updateLEDsOnce = false;
       }
     }
+  }
+
+  // animation
+  if (commandValue == 3){
+    unsigned long currentMillis = millis();
+    if (currentMillis - NeoLEDpreviousMillis >= NeoLEDinterval) {
+      NeoLEDpreviousMillis = currentMillis;
+      
+      // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one
+      strip.setPixelColor(NeoLEDcount, strip.Color(0, 0, 0));
+      
+      // count up to number of LEDs and down again
+      if (NeoLEDcountDown) {
+        if (NeoLEDcount >= 1)
+          NeoLEDcount--;
+      }
+      else {
+        if (NeoLEDcount < NEO_NUM_LEDS)
+          NeoLEDcount++;
+      }
+      if (NeoLEDcount == NEO_NUM_LEDS -1)
+        NeoLEDcountDown = true;
+      if (NeoLEDcount == 0)
+        NeoLEDcountDown = false;
+  //  redValue = 200;
+  //  commandValue = 3;
+      // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+      strip.setPixelColor(NeoLEDcount, strip.Color(redValue, greenValue, blueValue));
+      strip.show(); // This sends the updated pixel color to the hardware
+    }
+  }
     
   
   if (commandValue == 51) {

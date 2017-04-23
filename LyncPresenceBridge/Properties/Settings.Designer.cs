@@ -37,7 +37,7 @@ namespace LyncPresenceBridge.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0,200,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,255,0")]
         public string ColorAvailable {
             get {
                 return ((string)(this["ColorAvailable"]));
@@ -49,7 +49,7 @@ namespace LyncPresenceBridge.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25,200,25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("178,255,102")]
         public string ColorAvailableIdle {
             get {
                 return ((string)(this["ColorAvailableIdle"]));
@@ -61,7 +61,7 @@ namespace LyncPresenceBridge.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200,0,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("255,0,0")]
         public string ColorBusy {
             get {
                 return ((string)(this["ColorBusy"]));
@@ -73,7 +73,7 @@ namespace LyncPresenceBridge.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200,25,25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("255,178,102")]
         public string ColorBusyIdle {
             get {
                 return ((string)(this["ColorBusyIdle"]));
@@ -85,7 +85,7 @@ namespace LyncPresenceBridge.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200,200,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("255,255,0")]
         public string ColorAway {
             get {
                 return ((string)(this["ColorAway"]));
